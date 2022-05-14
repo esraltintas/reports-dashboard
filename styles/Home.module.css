@@ -3,6 +3,16 @@
   padding-bottom: 1.25rem;
 }
 
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.contents {
+  display: flex;
+  flex-direction: row;
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
