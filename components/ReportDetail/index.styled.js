@@ -18,12 +18,13 @@ export const StyledReportDetailTitleWrapper = styled.div`
 `
 
 export const StyledReportDetailCard = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns:
+    minmax(auto, 25rem) minmax(1rem, 25rem) minmax(1rem, 25rem)
+    minmax(1rem, 5rem);
+  grid-template-rows: 1fr;
   padding: 0.3125rem;
   margin: 0.9375rem;
-  gap: 12.5rem;
   background-color: ${(p) => (p.color === "white" ? "#fff" : "#F1FAFE;")};
   font-weight: 400;
   font-size: 16px;
@@ -31,4 +32,8 @@ export const StyledReportDetailCard = styled.div`
   color: #011f4b;
 `
 
-export const StyledReportDetailCardWrapper = styled.div``
+export const StyledReportDetailCardWrapper = styled.div`
+  max-height: 16.6875rem;
+  overflow: scroll;
+  scroll-behavior: auto;
+`

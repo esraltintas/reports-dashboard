@@ -6,44 +6,41 @@ import {
   StyledReportDetailCardWrapper,
 } from "./index.styled"
 
-const ReportDetail = ({ id, title, total, currency }) => {
+const ReportDetail = ({ project }) => {
+  let total = 0
+  project?.reports?.forEach((project) => {
+    total += project.amount
+  })
+
   const toggleDetailWrapper = () => {
-    var el = document.getElementById(id)
+    var el = document.getElementById(project.projectId)
     el.style.display = el.style.display === "none" ? "block" : "none"
   }
   return (
     <StyledReportDetail>
       <StyledReportDetailTitleWrapper onClick={() => toggleDetailWrapper()}>
-        <span>{title}</span>
-        <span>
-          TOTAL:{total} {currency}
-        </span>
+        <span>{project?.name}</span>
+        <span>{`TOTAL: ${total.toFixed(3).replace(".", ",")} USD`}</span>
       </StyledReportDetailTitleWrapper>
-      <StyledReportDetailCardWrapper id={id} style={{ display: "none" }}>
+      <StyledReportDetailCardWrapper
+        id={project.projectId}
+        style={{ display: "none" }}>
         <StyledReportDetailCard color="white">
-          <span>Date</span>
-          <span>Gateway 1</span>
-          <span>Transaction ID</span>
-          <span>Amount</span>
+          <div>Date</div>
+          <div>Gateway</div>
+          <div>Transaction ID</div>
+          <div>Amount</div>
         </StyledReportDetailCard>
-        <StyledReportDetailCard>
-          <span>01/21/2021</span>
-          <span>Gateway 2</span>
-          <span>a732b</span>
-          <span>3964 USD</span>
-        </StyledReportDetailCard>
-        <StyledReportDetailCard color="white">
-          <span>01/24/2021</span>
-          <span>Gateway 3</span>
-          <span>a732b</span>
-          <span>2554 USD</span>
-        </StyledReportDetailCard>
-        <StyledReportDetailCard>
-          <span>01/27/2021</span>
-          <span>Gateway 4</span>
-          <span>a732b</span>
-          <span>3547 USD</span>
-        </StyledReportDetailCard>
+        {project.reports.map((report, key) => {
+          return (
+            <StyledReportDetailCard color={key % 2 !== 0 && "white"}>
+              <span>{report.created}</span>
+              <span>{report.gatewayId}</span>
+              <span>{report.paymentId}</span>
+              <span>{`${report.amount.toFixed()} USD`}</span>
+            </StyledReportDetailCard>
+          )
+        })}
       </StyledReportDetailCardWrapper>
     </StyledReportDetail>
   )

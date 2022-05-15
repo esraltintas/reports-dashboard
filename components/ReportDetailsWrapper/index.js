@@ -42,10 +42,9 @@ const ReportDetailsWrapper = ({
   return (
     <StyledReportDetailWrapper>
       <StyledReportDetailTitle>
-        {selectedProject === "" ? "All projects" : listedProjects[0].name}
-        {selectedGateway === "" ? "All gateways" : listedGateways[0].name}
+        {`${selectedProject === "" ? "All projects" : listedProjects[0].name} |
+        ${selectedGateway === "" ? "All gateways" : listedGateways[0].name}`}
       </StyledReportDetailTitle>
-
       {projects.map((project) => (
         <ReportDetail project={project} />
       ))}
