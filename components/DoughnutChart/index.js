@@ -27,8 +27,8 @@ const DoughnutChart = ({ labels }) => {
     <StyledDoughnutChartWrapper>
       <StyledDonutChartTitles>
         {labels &&
-          labels.map((i) => (
-            <StyledChartParts>
+          labels.map((i, key) => (
+            <StyledChartParts key={key}>
               <StyledColor color={i.color} />
               <StyledTitle>{i.title}</StyledTitle>
             </StyledChartParts>

@@ -9,7 +9,6 @@ import {
 const ReportDetail = ({ id, title, total, currency }) => {
   const toggleDetailWrapper = () => {
     var el = document.getElementById(id)
-    console.log(el.style.display)
     el.style.display = el.style.display === "none" ? "block" : "none"
   }
   return (

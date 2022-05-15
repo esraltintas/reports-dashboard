@@ -11,4 +11,5 @@ export const StyledFooterWrapper = styled.div`
   bottom: 0;
   padding-left: 6.25rem;
   padding-bottom: 1.375rem;
+  position: absolute;
 `
