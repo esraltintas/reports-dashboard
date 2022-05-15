@@ -150,14 +150,17 @@ const Reports = () => {
                 <DoughnutChart
                   labels={[
                     { title: "Project 1", color: "#A259FF" },
-                    { title: "Project 2", color: "#F24E1E;" },
+                    { title: "Project 2", color: "#F24E1E" },
                     { title: "Project 3", color: "#FFC107" },
                     { title: "Project 4", color: "#6497B1" },
                   ]}
                 />
               ) : null}
             </StyledReportsContent>
-            <Total totalText="Total" total="144000" currency="USD" />{" "}
+            {(selectedProject === "" && selectedGateway === "") ||
+            (selectedProject !== "" && selectedGateway !== "") ? (
+              <Total totalText="Total" total="144000" currency="USD" />
+            ) : null}
           </>
         ) : (
           <NoReports />
