@@ -5,10 +5,12 @@ import DateComponent from "../DateComponent"
 import Button from "../Button"
 import Total from "../Total"
 import ReportDetailsWrapper from "../ReportDetailsWrapper"
+import DoughnutChart from "../DoughnutChart"
 
 import {
   StyledReportsWrapper,
   StyledReportsHeader,
+  StyledReportsContentWrapper,
   StyledReportsContent,
   StyledReportsTitleWrapper,
   StyledReportsTitle,
@@ -40,12 +42,23 @@ const Reports = () => {
           <Button text="Generate report" />
         </StyledButtonsWrapper>
       </StyledReportsHeader>
-      <StyledReportsContent>
+      <StyledReportsContentWrapper>
         {/*         <NoReports />
          */}{" "}
-        <ReportDetailsWrapper />
-        <Total total="144000" currency="USD" />
-      </StyledReportsContent>
+        <StyledReportsContent>
+          {" "}
+          <ReportDetailsWrapper />
+          <DoughnutChart
+            labels={[
+              { title: "Project 1", color: "#A259FF" },
+              { title: "Project 2", color: "#F24E1E;" },
+              { title: "Project 3", color: "#FFC107" },
+              { title: "Project 4", color: "#6497B1" },
+            ]}
+          />
+        </StyledReportsContent>
+        <Total totalText="Total" total="144000" currency="USD" />
+      </StyledReportsContentWrapper>
     </StyledReportsWrapper>
   )
 }

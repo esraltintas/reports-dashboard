@@ -1,12 +1,12 @@
 import React from "react"
 import { StyledTotalWrapper } from "./index.styles"
 
-const Total = ({ total, currency }) => {
+const Total = ({ totalText, total, currency }) => {
   return (
     <>
       {total && (
         <StyledTotalWrapper>
-          TOTAL: {total} {currency}
+          {totalText} | {total} {currency}
         </StyledTotalWrapper>
       )}
     </>

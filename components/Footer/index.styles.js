@@ -8,7 +8,6 @@ export const StyledFooterWrapper = styled.div`
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.1875rem;
-  position: fixed;
   bottom: 0;
   padding-left: 6.25rem;
   padding-bottom: 1.375rem;

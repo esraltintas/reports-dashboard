@@ -7,4 +7,5 @@ export const StyledTotalWrapper = styled.div`
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.1875rem;
+  margin-bottom: 1.6875rem;
 `

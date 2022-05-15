@@ -40,4 +40,11 @@ export const StyledButtonsWrapper = styled.div`
   gap: 1.4375rem;
 `
 
-export const StyledReportsContent = styled.div``
+export const StyledReportsContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1.9375rem;
+  justify-content: space-between;
+`
+
+export const StyledReportsContentWrapper = styled.div``
