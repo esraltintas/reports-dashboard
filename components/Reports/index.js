@@ -3,6 +3,8 @@ import NoReports from "../NoReports"
 import Dropdown from "../Dropdown"
 import DateComponent from "../DateComponent"
 import Button from "../Button"
+import Total from "../Total"
+import ReportDetailsWrapper from "../ReportDetailsWrapper"
 
 import {
   StyledReportsWrapper,
@@ -41,6 +43,8 @@ const Reports = () => {
       <StyledReportsContent>
         {/*         <NoReports />
          */}{" "}
+        <ReportDetailsWrapper />
+        <Total total="144000" currency="USD" />
       </StyledReportsContent>
     </StyledReportsWrapper>
   )

@@ -8,6 +8,7 @@ export const StyledWrapperNoReports = styled.div`
   align-content: center;
   text-align: center;
   font-weight: 700;
+  padding-top: 8.125rem;
 `
 
 export const StyledNoReportsTitle = styled.span`
