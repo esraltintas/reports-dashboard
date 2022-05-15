@@ -9,4 +9,7 @@ export const StyledButton = styled.button`
   max-height: 2rem;
   border: none;
   cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `

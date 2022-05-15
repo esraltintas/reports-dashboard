@@ -28,14 +28,40 @@ const customStyles = {
     minHeight: "32px",
     cursor: "pointer",
   }),
+  container: (provided) => ({
+    ...provided,
+    color: "white",
+  }),
   menu: (base) => ({
     ...base,
     borderRadius: 0,
     marginTop: 0,
+    background: "#1BC5BD",
   }),
   menuList: (base) => ({
     ...base,
-    padding: 0,
+    background: "#1BC5BD",
+    color: "white",
+  }),
+  placeholder: (base) => ({
+    ...base,
+    background: "#1BC5BD",
+    color: "white",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+  }),
+  option: (base) => ({
+    ...base,
+    color: "white",
+    cursor: "pointer",
+    "&:hover": {
+      background: "#005B96",
+    },
+  }),
+  singleValue: (base) => ({
+    ...base,
+    color: "white",
   }),
 }
 
@@ -53,6 +79,7 @@ const Dropdown = ({
         DropdownIndicator,
         IndicatorSeparator: () => null,
       }}
+      isSearchable={false}
       value={value || defaultSelected}
       options={options}
       placeholder={placeholder}

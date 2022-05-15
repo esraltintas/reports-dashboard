@@ -24,8 +24,8 @@ const Reports = () => {
   const [reports, setReports] = useState("")
   const [selectedProject, setSelectedProject] = useState("")
   const [selectedGateway, setSelectedGateway] = useState("")
-  const [from, setFrom] = useState("")
-  const [to, setTo] = useState("")
+  const [from, setFrom] = useState(null)
+  const [to, setTo] = useState(null)
 
   const [projects, setProjects] = useState("")
   const [gateways, setGateways] = useState("")
@@ -58,6 +58,14 @@ const Reports = () => {
     }
   }, [])
 
+  const handleChangeFrom = (date) => {
+    setFrom(date)
+  }
+
+  const handleChangeTo = (date) => {
+    setTo(date)
+  }
+
   const postReport = async () => {
     const res = await axios.post(
       "http://178.63.13.157:8090/mock-api/api/report",
@@ -68,22 +76,25 @@ const Reports = () => {
         gatewayId: selectedGateway,
       }
     )
-    setReports(res?.data?.data[0])
+    setReports(res?.data?.data)
   }
 
-  const gatewayOptions =
+  let gatewayOptions =
     gateways &&
     gateways.map((gateway) => ({
       value: gateway.gatewayId,
       label: gateway.name,
     }))
+  gateways && gatewayOptions.unshift({ value: "", label: "All Gateways" })
 
-  const projectOptions =
+  let projectOptions =
     projects &&
     projects.map((project) => ({
       value: project.projectId,
       label: project.name,
     }))
+  projects && projectOptions.unshift({ value: "", label: "All Projects" })
+
   return (
     <StyledReportsWrapper>
       <StyledReportsHeader>
@@ -108,8 +119,16 @@ const Reports = () => {
             options={gatewayOptions}
             placeholder="Select gateway"
           />
-          <DateComponent />
-          <DateComponent />
+          <DateComponent
+            date={from}
+            placeholder="From date"
+            handleChange={(date) => handleChangeFrom(date)}
+          />
+          <DateComponent
+            date={to}
+            placeholder="To date"
+            handleChange={(date) => handleChangeTo(date)}
+          />
           <Button onClick={postReport} text="Generate report" />
         </StyledButtonsWrapper>
       </StyledReportsHeader>
@@ -117,15 +136,26 @@ const Reports = () => {
         {reports ? (
           <>
             <StyledReportsContent>
-              <ReportDetailsWrapper />
-              <DoughnutChart
-                labels={[
-                  { title: "Project 1", color: "#A259FF" },
-                  { title: "Project 2", color: "#F24E1E;" },
-                  { title: "Project 3", color: "#FFC107" },
-                  { title: "Project 4", color: "#6497B1" },
-                ]}
+              <ReportDetailsWrapper
+                reports={reports}
+                projects={projects}
+                gateways={gateways}
+                selectedProject={selectedProject}
+                selectedGateway={selectedGateway}
               />
+              {!(
+                (selectedProject === "" && selectedGateway === "") ||
+                (selectedProject !== "" && selectedGateway !== "")
+              ) ? (
+                <DoughnutChart
+                  labels={[
+                    { title: "Project 1", color: "#A259FF" },
+                    { title: "Project 2", color: "#F24E1E;" },
+                    { title: "Project 3", color: "#FFC107" },
+                    { title: "Project 4", color: "#6497B1" },
+                  ]}
+                />
+              ) : null}
             </StyledReportsContent>
             <Total totalText="Total" total="144000" currency="USD" />{" "}
           </>

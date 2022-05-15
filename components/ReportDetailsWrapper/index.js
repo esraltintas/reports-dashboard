@@ -5,11 +5,24 @@ import {
   StyledReportDetailTitle,
 } from "./index.styles"
 
-const ReportDetailsWrapper = () => {
+const ReportDetailsWrapper = ({
+  projects,
+  gateways,
+  reports,
+  selectedProject,
+  selectedGateway,
+}) => {
+  let listedProjects =
+    projects && projects.filter((p) => p.projectId === selectedProject)
+
+  let listedGateways =
+    gateways && gateways.filter((p) => p.gatewayId === selectedGateway)
+  console.log(reports)
   return (
     <StyledReportDetailWrapper>
       <StyledReportDetailTitle>
-        All projects | All gateways
+        {selectedProject === "" ? "All projects" : listedProjects[0].name} |{" "}
+        {selectedGateway === "" ? "All gateways" : listedGateways[0].name}
       </StyledReportDetailTitle>
       <ReportDetail id="1" title="Project 1" total="14,212" currency="USD" />
       <ReportDetail id="2" title="Project 2" total="14,212" currency="USD" />
