@@ -39,7 +39,13 @@ const customStyles = {
   }),
 }
 
-const Dropdown = ({ value, defaultSelected, options, placeholder }) => {
+const Dropdown = ({
+  value,
+  defaultSelected,
+  options,
+  placeholder,
+  ...rest
+}) => {
   return (
     <Select
       components={{
@@ -51,6 +57,7 @@ const Dropdown = ({ value, defaultSelected, options, placeholder }) => {
       options={options}
       placeholder={placeholder}
       styles={customStyles}
+      {...rest}
     />
   )
 }

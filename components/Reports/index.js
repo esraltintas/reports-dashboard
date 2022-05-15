@@ -22,21 +22,68 @@ import {
 
 const Reports = () => {
   const [reports, setReports] = useState("")
+  const [selectedProject, setSelectedProject] = useState("")
+  const [selectedGateway, setSelectedGateway] = useState("")
+  const [from, setFrom] = useState("")
+  const [to, setTo] = useState("")
 
-  const postReport = async ({ from, to, projectId, gatewayId }) => {
+  const [projects, setProjects] = useState("")
+  const [gateways, setGateways] = useState("")
+
+  useEffect(() => {
+    if (projects === "") {
+      const fetchProjects = async () => {
+        const res = await axios.get(
+          "http://178.63.13.157:8090/mock-api/api/projects"
+        )
+
+        setProjects(res?.data?.data)
+      }
+
+      fetchProjects()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (gateways === "") {
+      const fetchGateways = async () => {
+        const res = await axios.get(
+          "http://178.63.13.157:8090/mock-api/api/gateways"
+        )
+
+        setGateways(res?.data?.data)
+      }
+
+      fetchGateways()
+    }
+  }, [])
+
+  const postReport = async () => {
     const res = await axios.post(
       "http://178.63.13.157:8090/mock-api/api/report",
-      { from: from, to: to, projectId: projectId, gatewayId: gatewayId }
+      {
+        from: from,
+        to: to,
+        projectId: selectedProject,
+        gatewayId: selectedGateway,
+      }
     )
     setReports(res?.data?.data[0])
   }
 
-  const projectOptions = [
-    {
-      value: 1,
-      label: "Test",
-    },
-  ]
+  const gatewayOptions =
+    gateways &&
+    gateways.map((gateway) => ({
+      value: gateway.gatewayId,
+      label: gateway.name,
+    }))
+
+  const projectOptions =
+    projects &&
+    projects.map((project) => ({
+      value: project.projectId,
+      label: project.name,
+    }))
   return (
     <StyledReportsWrapper>
       <StyledReportsHeader>
@@ -47,8 +94,20 @@ const Reports = () => {
           </StyledReportsTitleDesc>
         </StyledReportsTitleWrapper>
         <StyledButtonsWrapper>
-          <Dropdown options={projectOptions} placeholder="Select project" />
-          <Dropdown options={projectOptions} placeholder="Select gateway" />
+          <Dropdown
+            onChange={(project) => {
+              setSelectedProject(project.value)
+            }}
+            options={projectOptions}
+            placeholder="Select project"
+          />
+          <Dropdown
+            onChange={(gateway) => {
+              setSelectedGateway(gateway.value)
+            }}
+            options={gatewayOptions}
+            placeholder="Select gateway"
+          />
           <DateComponent />
           <DateComponent />
           <Button onClick={postReport} text="Generate report" />
