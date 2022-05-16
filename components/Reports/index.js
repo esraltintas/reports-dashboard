@@ -22,8 +22,13 @@ import {
 
 const Reports = () => {
   const [reports, setReports] = useState("")
+
+  const [projectId, setProjectId] = useState("")
+  const [gatewayId, setGatewayId] = useState("")
   const [selectedProject, setSelectedProject] = useState("")
   const [selectedGateway, setSelectedGateway] = useState("")
+  const [selectedFrom, setSelectedFrom] = useState(null)
+  const [selectedTo, setSelectedTo] = useState(null)
   const [from, setFrom] = useState(null)
   const [to, setTo] = useState(null)
 
@@ -59,21 +64,25 @@ const Reports = () => {
   }, [])
 
   const handleChangeFrom = (date) => {
-    setFrom(date)
+    setSelectedFrom(date)
   }
 
   const handleChangeTo = (date) => {
-    setTo(date)
+    setSelectedTo(date)
   }
 
   const postReport = async () => {
+    setTo(selectedTo)
+    setFrom(selectedFrom)
+    setGatewayId(selectedGateway)
+    setProjectId(selectedProject)
     const res = await axios.post(
       "http://178.63.13.157:8090/mock-api/api/report",
       {
         from: from,
         to: to,
-        projectId: selectedProject,
-        gatewayId: selectedGateway,
+        projectId: projectId,
+        gatewayId: gatewayId,
       }
     )
     setReports(res?.data?.data)
@@ -81,37 +90,37 @@ const Reports = () => {
 
   let gatewayOptions =
     gateways &&
-    gateways.map((gateway) => ({
-      value: gateway.gatewayId,
-      label: gateway.name,
+    gateways.map((g) => ({
+      value: g.gatewayId,
+      label: g.name,
     }))
   gateways && gatewayOptions.unshift({ value: "", label: "All Gateways" })
 
   let projectOptions =
     projects &&
-    projects.map((project) => ({
-      value: project.projectId,
-      label: project.name,
+    projects.map((p) => ({
+      value: p.projectId,
+      label: p.name,
     }))
   projects && projectOptions.unshift({ value: "", label: "All Projects" })
 
   projects &&
-    projects.forEach((project) => {
-      project.reports = []
+    projects.forEach((p) => {
+      p.reports = []
       reports &&
-        reports.forEach((report) => {
-          if (report.projectId === project.projectId) {
-            project.reports.push(report)
+        reports.forEach((r) => {
+          if (r.projectId === p.projectId) {
+            p.reports.push(r)
           }
         })
     })
   gateways &&
-    gateways.forEach((gateway) => {
-      gateway.reports = []
+    gateways.forEach((g) => {
+      g.reports = []
       reports &&
-        reports.forEach((report) => {
-          if (report.gatewayId === gateway.gatewayId) {
-            gateway.reports.push(report)
+        reports.forEach((r) => {
+          if (r.gatewayId === g.gatewayId) {
+            g.reports.push(r)
           }
         })
     })
@@ -161,25 +170,25 @@ const Reports = () => {
                 reports={reports}
                 projects={projects}
                 gateways={gateways}
-                selectedProject={selectedProject}
-                selectedGateway={selectedGateway}
+                projectId={projectId}
+                gatewayId={gatewayId}
               />
               {!(
-                (selectedProject === "" && selectedGateway === "") ||
-                (selectedProject !== "" && selectedGateway !== "")
+                (projectId === "" && gatewayId === "") ||
+                (projectId !== "" && gatewayId !== "")
               ) ? (
-                selectedProject !== "" ? (
+                projectId !== "" ? (
                   <DoughnutChart
                     type="Project"
                     chartInfo={projects.filter(
-                      (project) => project.projectId === selectedProject
+                      (p) => p.projectId === projectId
                     )}
                   />
                 ) : null
               ) : null}
             </StyledReportsContent>
-            {(selectedProject === "" && selectedGateway === "") ||
-            (selectedProject !== "" && selectedGateway !== "") ? (
+            {(projectId === "" && gatewayId === "") ||
+            (projectId !== "" && gatewayId !== "") ? (
               <Total totalText="Total" total="144000" currency="USD" />
             ) : null}
           </>

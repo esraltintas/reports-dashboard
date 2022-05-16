@@ -5,31 +5,25 @@ import {
   StyledReportDetailTitle,
 } from "./index.styles"
 
-const ReportDetailsWrapper = ({
-  projects,
-  gateways,
-  reports,
-  selectedProject,
-  selectedGateway,
-}) => {
+const ReportDetailsWrapper = ({ projects, gateways, projectId, gatewayId }) => {
   let listedProjects =
-    projects && projects.filter((p) => p.projectId === selectedProject)
+    projects && projects.filter((p) => p.projectId === projectId)
 
   let listedGateways =
-    gateways && gateways.filter((p) => p.gatewayId === selectedGateway)
+    gateways && gateways.filter((p) => p.gatewayId === gatewayId)
 
   return (
     <StyledReportDetailWrapper>
       <StyledReportDetailTitle>
-        {`${selectedProject === "" ? "All projects" : listedProjects[0].name} |
-        ${selectedGateway === "" ? "All gateways" : listedGateways[0].name}`}
+        {`${projectId === "" ? "All projects" : listedProjects[0].name} |
+        ${gatewayId === "" ? "All gateways" : listedGateways[0].name}`}
       </StyledReportDetailTitle>
-      {projects.map((project, key) => (
+      {projects.map((p, key) => (
         <ReportDetail
-          project={project}
+          project={p}
           key={key}
-          selectedProject={selectedProject}
-          selectedGateway={selectedGateway}
+          selectedProject={projectId}
+          selectedGateway={gatewayId}
         />
       ))}
     </StyledReportDetailWrapper>
