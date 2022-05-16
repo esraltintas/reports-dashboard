@@ -19,7 +19,7 @@ const Home = ({ user }) => {
         <link rel="icon" href="/assets/reports-logo.svg" />
       </Head>
       <div className={styles.pageWrapper}>
-        <Header user={user} />
+        <Header />
 
         <div className={styles.contents}>
           <NavBar />
@@ -30,18 +30,6 @@ const Home = ({ user }) => {
       <Footer />
     </div>
   )
-}
-
-Home.getInitialProps = async (ctx) => {
-  try {
-    const res = await axios.get("http://178.63.13.157:8090/mock-api/api/users")
-    const user = res?.data[0]
-    console.log(user)
-
-    return { user }
-  } catch (err) {
-    return { err }
-  }
 }
 
 export default Home
