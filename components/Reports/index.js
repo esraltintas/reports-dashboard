@@ -121,9 +121,6 @@ const Reports = () => {
       <StyledReportsHeader>
         <StyledReportsTitleWrapper>
           <StyledReportsTitle>Reports</StyledReportsTitle>
-          <StyledReportsTitleDesc>
-            Easily generate a report of your transactions
-          </StyledReportsTitleDesc>
         </StyledReportsTitleWrapper>
         <StyledButtonsWrapper>
           <Dropdown
@@ -153,6 +150,9 @@ const Reports = () => {
           <Button onClick={postReport} text="Generate report" />
         </StyledButtonsWrapper>
       </StyledReportsHeader>
+      <StyledReportsTitleDesc>
+        Easily generate a report of your transactions
+      </StyledReportsTitleDesc>
       <StyledReportsContentWrapper>
         {reports ? (
           <>

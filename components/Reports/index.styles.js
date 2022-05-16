@@ -10,7 +10,6 @@ export const StyledReportsWrapper = styled.div`
 export const StyledReportsHeader = styled.div`
   display: flex;
   flex-direction: row;
-  padding-bottom: 1.6875rem;
   justify-content: space-between;
   gap: 2.1875rem;
 `
