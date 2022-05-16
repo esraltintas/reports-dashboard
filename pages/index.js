@@ -5,6 +5,7 @@ import Header from "../components/Header"
 import NavBar from "../components/NavBar"
 import Footer from "../components/Footer"
 import Reports from "../components/Reports"
+import EmptyPage from "../components/EmptyPage"
 
 import { useRouter } from "next/router"
 
@@ -23,7 +24,7 @@ const Home = ({ user }) => {
 
         <div className={styles.contents}>
           <NavBar />
-          {query.reports && <Reports />}
+          {query.reports ? <Reports /> : <EmptyPage />}
         </div>
       </div>
 

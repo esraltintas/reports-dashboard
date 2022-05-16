@@ -9,7 +9,7 @@ import {
 const NoReports = () => {
   return (
     <StyledWrapperNoReports>
-      <StyledNoReportsTitle> No Reports</StyledNoReportsTitle>
+      <StyledNoReportsTitle>No Reports</StyledNoReportsTitle>
       <StyledNoReportsDesc>
         Currently you have no data for the reports to be generated. Once you
         start generating traffic through the Balance application the reports
