@@ -95,6 +95,27 @@ const Reports = () => {
     }))
   projects && projectOptions.unshift({ value: "", label: "All Projects" })
 
+  projects &&
+    projects.forEach((project) => {
+      project.reports = []
+      reports &&
+        reports.forEach((report) => {
+          if (report.projectId === project.projectId) {
+            project.reports.push(report)
+          }
+        })
+    })
+  gateways &&
+    gateways.forEach((gateway) => {
+      gateway.reports = []
+      reports &&
+        reports.forEach((report) => {
+          if (report.gatewayId === gateway.gatewayId) {
+            gateway.reports.push(report)
+          }
+        })
+    })
+
   return (
     <StyledReportsWrapper>
       <StyledReportsHeader>
@@ -147,14 +168,14 @@ const Reports = () => {
                 (selectedProject === "" && selectedGateway === "") ||
                 (selectedProject !== "" && selectedGateway !== "")
               ) ? (
-                <DoughnutChart
-                  labels={[
-                    { title: "Project 1", color: "#A259FF" },
-                    { title: "Project 2", color: "#F24E1E" },
-                    { title: "Project 3", color: "#FFC107" },
-                    { title: "Project 4", color: "#6497B1" },
-                  ]}
-                />
+                selectedProject !== "" ? (
+                  <DoughnutChart
+                    type="Project"
+                    chartInfo={projects.filter(
+                      (project) => project.projectId === selectedProject
+                    )}
+                  />
+                ) : null
               ) : null}
             </StyledReportsContent>
             {(selectedProject === "" && selectedGateway === "") ||

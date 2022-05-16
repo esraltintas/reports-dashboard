@@ -18,35 +18,19 @@ const ReportDetailsWrapper = ({
   let listedGateways =
     gateways && gateways.filter((p) => p.gatewayId === selectedGateway)
 
-  projects &&
-    projects.forEach((project) => {
-      project.reports = []
-      reports &&
-        reports.forEach((report) => {
-          if (report.projectId === project.projectId) {
-            project.reports.push(report)
-          }
-        })
-    })
-  gateways &&
-    gateways.forEach((gateway) => {
-      gateway.reports = []
-      reports &&
-        reports.forEach((report) => {
-          if (report.gatewayId === gateway.gatewayId) {
-            gateway.reports.push(report)
-          }
-        })
-    })
-
   return (
     <StyledReportDetailWrapper>
       <StyledReportDetailTitle>
         {`${selectedProject === "" ? "All projects" : listedProjects[0].name} |
         ${selectedGateway === "" ? "All gateways" : listedGateways[0].name}`}
       </StyledReportDetailTitle>
-      {projects.map((project) => (
-        <ReportDetail project={project} />
+      {projects.map((project, key) => (
+        <ReportDetail
+          project={project}
+          key={key}
+          selectedProject={selectedProject}
+          selectedGateway={selectedGateway}
+        />
       ))}
     </StyledReportDetailWrapper>
   )

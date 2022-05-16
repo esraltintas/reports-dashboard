@@ -19,9 +19,11 @@ export const StyledReportDetailTitleWrapper = styled.div`
 
 export const StyledReportDetailCard = styled.div`
   display: grid;
-  grid-template-columns:
-    minmax(auto, 25rem) minmax(1rem, 25rem) minmax(1rem, 25rem)
-    minmax(1rem, 5rem);
+  grid-template-columns: ${(p) =>
+    p.selectedProject !== "" || p.selectedGateway !== ""
+      ? "minmax(auto, 25rem)  minmax(1rem, 25rem) minmax(1rem, 5rem);"
+      : "minmax(auto, 25rem) minmax(1rem, 25rem) minmax(1rem, 25rem) minmax(1rem, 5rem);"}
+    
   grid-template-rows: 1fr;
   padding: 0.3125rem;
   margin: 0.9375rem;

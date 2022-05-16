@@ -6,7 +6,7 @@ import {
   StyledReportDetailCardWrapper,
 } from "./index.styled"
 
-const ReportDetail = ({ project }) => {
+const ReportDetail = ({ project, selectedGateway, selectedProject }) => {
   let total = 0
   project?.reports?.forEach((project) => {
     total += project.amount
@@ -25,17 +25,28 @@ const ReportDetail = ({ project }) => {
       <StyledReportDetailCardWrapper
         id={project.projectId}
         style={{ display: "none" }}>
-        <StyledReportDetailCard color="white">
+        <StyledReportDetailCard
+          color="white"
+          selectedProject={selectedProject}
+          selectedGateway={selectedGateway}>
           <div>Date</div>
-          <div>Gateway</div>
+          {!(selectedProject !== "" || selectedGateway !== "") && (
+            <div>Gateway</div>
+          )}
           <div>Transaction ID</div>
           <div>Amount</div>
         </StyledReportDetailCard>
         {project.reports.map((report, key) => {
           return (
-            <StyledReportDetailCard color={key % 2 !== 0 && "white"}>
+            <StyledReportDetailCard
+              selectedProject={selectedProject}
+              selectedGateway={selectedGateway}
+              color={key % 2 !== 0 ? "white" : 0}
+              key={key}>
               <span>{report.created}</span>
-              <span>{report.gatewayId}</span>
+              {!(selectedProject !== "" || selectedGateway !== "") && (
+                <span>{report.gatewayId}</span>
+              )}
               <span>{report.paymentId}</span>
               <span>{`${report.amount.toFixed()} USD`}</span>
             </StyledReportDetailCard>

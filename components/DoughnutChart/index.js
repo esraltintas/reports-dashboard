@@ -13,16 +13,27 @@ import {
 
 ChartJS.register(ArcElement, Tooltip)
 
-const data = {
-  datasets: [
-    {
-      data: [300, 50, 100, 20],
-      backgroundColor: ["#A259FF", "#F24E1E", "#FFC107", "#6497B1"],
-    },
-  ],
-}
+const DoughnutChart = ({ type, chartInfo }) => {
+  const labels = [
+    { title: "Project 1", color: "#A259FF" },
+    { title: "Project 2", color: "#F24E1E" },
+    { title: "Project 3", color: "#FFC107" },
+    { title: "Project 4", color: "#6497B1" },
+  ]
 
-const DoughnutChart = ({ labels }) => {
+  let total = 0
+  chartInfo[0].reports.forEach((report) => {
+    total += report.amount
+  })
+
+  const data = {
+    datasets: [
+      {
+        data: [300, 50, 100, 20],
+        backgroundColor: ["#A259FF", "#F24E1E", "#FFC107", "#6497B1"],
+      },
+    ],
+  }
   return (
     <StyledDoughnutChartWrapper>
       <StyledDonutChartTitles>
@@ -42,7 +53,11 @@ const DoughnutChart = ({ labels }) => {
           options={{ responsive: true, maintainAspectRatio: true }}
         />
       </StyledDoughnutWrapper>
-      <Total totalText="Project Total" total="14,065" currency="USD" />
+      <Total
+        totalText={`${type} Total`}
+        total={total.toFixed(3).replace(".", ",")}
+        currency="USD"
+      />
     </StyledDoughnutChartWrapper>
   )
 }
