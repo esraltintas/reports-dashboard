@@ -12,5 +12,6 @@ export const StyledNavBarWrapper = styled.div`
 
   span {
     cursor: pointer;
+    width: 1.875rem !important;
   }
 `

@@ -6,24 +6,26 @@ import {
   StyledReportDetailCardWrapper,
 } from "./index.styled"
 
-const ReportDetail = ({ project, selectedGateway, selectedProject }) => {
+const ReportDetail = ({ type, detail, selectedGateway, selectedProject }) => {
   let total = 0
-  project?.reports?.forEach((project) => {
-    total += project.amount
+  detail?.reports?.forEach((d) => {
+    total += d.amount
   })
 
   const toggleDetailWrapper = () => {
-    var el = document.getElementById(project.projectId)
+    var el = document.getElementById(
+      type === "project" ? detail.projectId : detail.gatewayId
+    )
     el.style.display = el.style.display === "none" ? "block" : "none"
   }
-  return (
+  return total !== 0 ? (
     <StyledReportDetail>
       <StyledReportDetailTitleWrapper onClick={() => toggleDetailWrapper()}>
-        <span>{project?.name}</span>
+        <span>{detail?.name}</span>
         <span>{`TOTAL: ${total.toFixed(3).replace(".", ",")} USD`}</span>
       </StyledReportDetailTitleWrapper>
       <StyledReportDetailCardWrapper
-        id={project.projectId}
+        id={type === "project" ? detail.projectId : detail.gatewayId}
         style={{ display: "none" }}>
         <StyledReportDetailCard
           color="white"
@@ -36,7 +38,7 @@ const ReportDetail = ({ project, selectedGateway, selectedProject }) => {
           <div>Transaction ID</div>
           <div>Amount</div>
         </StyledReportDetailCard>
-        {project.reports.map((report, key) => {
+        {detail.reports.map((report, key) => {
           return (
             <StyledReportDetailCard
               selectedProject={selectedProject}
@@ -54,7 +56,7 @@ const ReportDetail = ({ project, selectedGateway, selectedProject }) => {
         })}
       </StyledReportDetailCardWrapper>
     </StyledReportDetail>
-  )
+  ) : null
 }
 
 export default ReportDetail

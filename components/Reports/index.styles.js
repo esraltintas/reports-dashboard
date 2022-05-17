@@ -31,6 +31,7 @@ export const StyledReportsTitleDesc = styled.span`
   font-size: 16px;
   line-height: 19px;
   color: #7e8299;
+  padding-bottom: 1.6875rem;
 `
 
 export const StyledButtonsWrapper = styled.div`

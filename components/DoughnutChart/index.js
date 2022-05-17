@@ -15,19 +15,26 @@ import {
 ChartJS.register(ArcElement, Tooltip)
 
 const DoughnutChart = ({ type, chartInfo }) => {
-  const charts = groupBy(chartInfo[0].reports, "gatewayId")
-  const gateways = Object.keys(charts)
+  let charts
+  if (type === "project") {
+    charts = groupBy(chartInfo[0].reports, "gatewayId")
+  } else {
+    charts = groupBy(chartInfo[0].reports, "projectId")
+  }
+  const chartData = Object.keys(charts)
+
   const colors = ["#A259FF", "#F24E1E", "#FFC107", "#6497B1"]
   let labels = []
+  console.log(chartData, chartInfo)
 
-  gateways.forEach((g) => {
+  chartData.forEach((cd) => {
     let totalAmount = 0
-    charts[g].forEach(({ amount }) => {
+    charts[cd].forEach(({ amount }) => {
       totalAmount += amount
     })
     if (labels.length < 4) {
       labels.push({
-        title: g,
+        title: cd,
         color: colors[labels.length],
         data: totalAmount,
       })
@@ -47,6 +54,7 @@ const DoughnutChart = ({ type, chartInfo }) => {
       },
     ],
   }
+
   return (
     <StyledDoughnutChartWrapper>
       <StyledDonutChartTitles>
@@ -67,7 +75,7 @@ const DoughnutChart = ({ type, chartInfo }) => {
         />
       </StyledDoughnutWrapper>
       <Total
-        totalText={`${type} Total`}
+        totalText={`${type.toUpperCase()} Total`}
         total={total.toFixed(3).replace(".", ",")}
         currency="USD"
       />

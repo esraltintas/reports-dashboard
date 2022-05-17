@@ -22,7 +22,6 @@ import {
 
 const Reports = () => {
   const [reports, setReports] = useState("")
-
   const [projectId, setProjectId] = useState("")
   const [gatewayId, setGatewayId] = useState("")
   const [selectedProject, setSelectedProject] = useState("")
@@ -31,7 +30,6 @@ const Reports = () => {
   const [selectedTo, setSelectedTo] = useState(null)
   const [from, setFrom] = useState(null)
   const [to, setTo] = useState(null)
-
   const [projects, setProjects] = useState("")
   const [gateways, setGateways] = useState("")
 
@@ -125,6 +123,10 @@ const Reports = () => {
         })
     })
 
+  const totalAmount = 0
+
+  reports && reports.map(({ amount }) => (totalAmount += amount))
+
   return (
     <StyledReportsWrapper>
       <StyledReportsHeader>
@@ -173,24 +175,36 @@ const Reports = () => {
                 projectId={projectId}
                 gatewayId={gatewayId}
               />
-              {!(
-                (projectId === "" && gatewayId === "") ||
-                (projectId !== "" && gatewayId !== "")
-              ) ? (
+              {(projectId !== "" && gatewayId === "") ||
+              (projectId === "" && gatewayId !== "") ? (
                 projectId !== "" ? (
                   <DoughnutChart
-                    type="Project"
-                    gateways={gateways}
+                    type="project"
                     chartInfo={projects.filter(
                       (p) => p.projectId === projectId
                     )}
                   />
-                ) : null
+                ) : (
+                  gateways.length > 0 && (
+                    <DoughnutChart
+                      type="gateway"
+                      chartInfo={gateways.filter(
+                        (p) => p.gatewayId === gatewayId
+                      )}
+                    />
+                  )
+                )
               ) : null}
             </StyledReportsContent>
-            {(projectId === "" && gatewayId === "") ||
-            (projectId !== "" && gatewayId !== "") ? (
-              <Total totalText="Total" total="144000" currency="USD" />
+            {!(
+              (projectId !== "" && gatewayId === "") ||
+              (projectId === "" && gatewayId !== "")
+            ) ? (
+              <Total
+                totalText="Total"
+                total={totalAmount.toFixed(3).replace(".", ",")}
+                currency="USD"
+              />
             ) : null}
           </>
         ) : (
