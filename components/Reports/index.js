@@ -180,6 +180,7 @@ const Reports = () => {
                 projectId !== "" ? (
                   <DoughnutChart
                     type="Project"
+                    gateways={gateways}
                     chartInfo={projects.filter(
                       (p) => p.projectId === projectId
                     )}
