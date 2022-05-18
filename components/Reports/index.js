@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import axios from "../../axios"
-
 import NoReports from "../NoReports"
 import Dropdown from "../Dropdown"
 import DateComponent from "../DateComponent"
@@ -8,7 +7,6 @@ import Button from "../Button"
 import Total from "../Total"
 import ReportDetailsWrapper from "../ReportDetailsWrapper"
 import DoughnutChart from "../DoughnutChart"
-
 import {
   StyledReportsWrapper,
   StyledReportsHeader,
@@ -37,9 +35,7 @@ const Reports = () => {
   useEffect(() => {
     if (projects === "") {
       const fetchProjects = async () => {
-        const res = await axios.get(
-          "http://178.63.13.157:8090/mock-api/api/projects"
-        )
+        const res = await axios.get("projects")
 
         setProjects(res?.data?.data)
       }
@@ -51,10 +47,7 @@ const Reports = () => {
   useEffect(() => {
     if (gateways === "") {
       const fetchGateways = async () => {
-        const res = await axios.get(
-          "http://178.63.13.157:8090/mock-api/api/gateways"
-        )
-
+        const res = await axios.get("gateways")
         setGateways(res?.data?.data)
       }
 
@@ -85,10 +78,7 @@ const Reports = () => {
   }, [projectId, gatewayId, to, from])
 
   const postReport = async () => {
-    const res = await axios.post(
-      "http://178.63.13.157:8090/mock-api/api/report",
-      { from, to, projectId, gatewayId }
-    )
+    const res = await axios.post("report",{ from, to, projectId, gatewayId })
     setReports(
       res?.data?.data?.map((report) => {
         const { gatewayId, projectId } = report

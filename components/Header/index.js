@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { StyledHeaderWrapper, StyledLogo } from "./index.styles"
-import axios from "axios"
+import axios from "../../axios"
 import Image from "next/image"
 import User from "../User"
 
@@ -9,13 +9,9 @@ const Header = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(
-        "http://178.63.13.157:8090/mock-api/api/users"
-      )
-
+      const res = await axios.get("users")
       setUser(res?.data.data[0])
     }
-
     fetchData()
   }, [])
 
