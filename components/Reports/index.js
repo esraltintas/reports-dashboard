@@ -67,7 +67,7 @@ const Reports = () => {
     setTo(selectedTo)
     setFrom(selectedFrom)
     setGatewayId(selectedGateway)
-    setProjectId(selectedProject)
+    setProjectId(selectedProject) 
     setPost(1)
   }
 
@@ -75,7 +75,8 @@ const Reports = () => {
     if (post === 1) {
       postReport()
     }
-  }, [projectId, gatewayId, to, from])
+    setPost(0)
+  }, [projectId, gatewayId, to, from, post])
 
   const postReport = async () => {
     const res = await axios.post("report",{ from, to, projectId, gatewayId })
@@ -205,7 +206,7 @@ const Reports = () => {
                     />
                   )
                 )
-              ) : null}
+              ) : null} 
             </StyledReportsContent>
             {!(
               (projectId !== "" && gatewayId === "") ||
