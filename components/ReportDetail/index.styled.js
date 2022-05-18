@@ -21,7 +21,7 @@ export const StyledReportDetailCard = styled.div`
   display: grid;
   grid-template-columns: ${(p) =>
     p.selectedProject !== "" || p.selectedGateway !== ""
-      ? "minmax(auto, 25rem)  minmax(1rem, 25rem) minmax(1rem, 5rem);"
+      ? "minmax(auto, 40rem)  minmax(1rem, 40rem) minmax(1rem, 5rem);"
       : "minmax(auto, 25rem) minmax(1rem, 25rem) minmax(1rem, 25rem) minmax(1rem, 5rem);"}
     
   grid-template-rows: 1fr;

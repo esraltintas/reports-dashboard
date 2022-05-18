@@ -17,9 +17,9 @@ ChartJS.register(ArcElement, Tooltip)
 const DoughnutChart = ({ type, chartInfo }) => {
   let charts
   if (type === "project") {
-    charts = groupBy(chartInfo[0].reports, "gatewayId")
+    charts = groupBy(chartInfo[0].reports, "gatewayName")
   } else {
-    charts = groupBy(chartInfo[0].reports, "projectId")
+    charts = groupBy(chartInfo[0].reports, "projectName")
   }
   const chartData = Object.keys(charts)
 
