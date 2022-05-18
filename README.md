@@ -7,8 +7,6 @@ nvm install node
 nvm install --lts
 ```
 
-You'll need Node and npm (or yarn) installed on your machine to run this project. You can verify your installations by running these commands:
-
 ````bash
 node --version
 npm --version
@@ -18,8 +16,6 @@ npm --version
 ```bash
 npm install --global yarn
 ````
-
-If you've cloned this repository, navigate into the directory and install the npm modules using this command:
 
 ```bash
 yarn
