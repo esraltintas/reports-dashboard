@@ -102,11 +102,27 @@ const Reports = () => {
     }))
   projects && projectOptions.unshift({ value: "", label: "All Projects" })
 
+  const allReports =
+    reports &&
+    reports.map((r) => {
+      let gw = gateways.find((g) => g.gatewayId === r.gatewayId)
+      let pr = projects.find((p) => p.projectId === r.projectId)
+
+      const { name: gatewayName } = gw
+      const { name: projectName } = pr
+
+      return {
+        gatewayName,
+        projectName,
+        ...r,
+      }
+    })
+
   projects &&
     projects.forEach((p) => {
       p.reports = []
-      reports &&
-        reports.forEach((r) => {
+      allReports &&
+        allReports.forEach((r) => {
           if (r.projectId === p.projectId) {
             p.reports.push(r)
           }
@@ -115,8 +131,8 @@ const Reports = () => {
   gateways &&
     gateways.forEach((g) => {
       g.reports = []
-      reports &&
-        reports.forEach((r) => {
+      allReports &&
+        allReports.forEach((r) => {
           if (r.gatewayId === g.gatewayId) {
             g.reports.push(r)
           }
@@ -125,7 +141,7 @@ const Reports = () => {
 
   const totalAmount = 0
 
-  reports && reports.map(({ amount }) => (totalAmount += amount))
+  allReports && allReports.map(({ amount }) => (totalAmount += amount))
 
   return (
     <StyledReportsWrapper>
@@ -169,7 +185,7 @@ const Reports = () => {
           <>
             <StyledReportsContent>
               <ReportDetailsWrapper
-                reports={reports}
+                reports={allReports}
                 projects={projects}
                 gateways={gateways}
                 projectId={projectId}

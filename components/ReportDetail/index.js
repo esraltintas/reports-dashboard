@@ -47,7 +47,7 @@ const ReportDetail = ({ type, detail, selectedGateway, selectedProject }) => {
               key={key}>
               <span>{report.created}</span>
               {!(selectedProject !== "" || selectedGateway !== "") && (
-                <span>{report.gatewayId}</span>
+                <span>{report.gatewayName}</span>
               )}
               <span>{report.paymentId}</span>
               <span>{`${report.amount.toFixed()} USD`}</span>
