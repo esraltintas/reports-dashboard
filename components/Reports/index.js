@@ -170,12 +170,12 @@ const Reports = () => {
             placeholder="Select gateway"
           />
           <DateComponent
-            date={from}
+            date={selectedFrom}
             placeholder="From date"
             handleChange={(date) => handleChangeFrom(date)}
           />
           <DateComponent
-            date={to}
+            date={selectedTo}
             placeholder="To date"
             handleChange={(date) => handleChangeTo(date)}
           />
