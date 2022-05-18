@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import axios from "axios"
+import axios from "../../axios"
 
 import NoReports from "../NoReports"
 import Dropdown from "../Dropdown"
@@ -32,6 +32,7 @@ const Reports = () => {
   const [to, setTo] = useState(null)
   const [projects, setProjects] = useState("")
   const [gateways, setGateways] = useState("")
+  const [post, setPost] = useState(0)
 
   useEffect(() => {
     if (projects === "") {
@@ -69,21 +70,41 @@ const Reports = () => {
     setSelectedTo(date)
   }
 
-  const postReport = async () => {
+  const generateReport = () => {
     setTo(selectedTo)
     setFrom(selectedFrom)
     setGatewayId(selectedGateway)
     setProjectId(selectedProject)
+    setPost(1)
+  }
+
+  useEffect(() => {
+    if (post === 1) {
+      postReport()
+    }
+  }, [projectId, gatewayId, to, from])
+
+  const postReport = async () => {
     const res = await axios.post(
       "http://178.63.13.157:8090/mock-api/api/report",
-      {
-        from: from,
-        to: to,
-        projectId: projectId,
-        gatewayId: gatewayId,
-      }
+      { from, to, projectId, gatewayId }
     )
-    setReports(res?.data?.data)
+    setReports(
+      res?.data?.data?.map((report) => {
+        const { gatewayId, projectId } = report
+
+        const gateway =
+          gateways && gateways.find(g => g.gatewayId === gatewayId)
+        const project =
+          projects && projects.find(p => p.projectId === projectId)
+
+        return {
+          ...report,
+          gatewayName: gateway.name,
+          projectName: project.name,
+        }
+      })
+    )
   }
 
   let gatewayOptions =
@@ -102,27 +123,11 @@ const Reports = () => {
     }))
   projects && projectOptions.unshift({ value: "", label: "All Projects" })
 
-  const allReports =
-    reports &&
-    reports.map((r) => {
-      let gw = gateways.find((g) => g.gatewayId === r.gatewayId)
-      let pr = projects.find((p) => p.projectId === r.projectId)
-
-      const { name: gatewayName } = gw
-      const { name: projectName } = pr
-
-      return {
-        gatewayName,
-        projectName,
-        ...r,
-      }
-    })
-
   projects &&
     projects.forEach((p) => {
       p.reports = []
-      allReports &&
-        allReports.forEach((r) => {
+      reports &&
+        reports.forEach((r) => {
           if (r.projectId === p.projectId) {
             p.reports.push(r)
           }
@@ -131,8 +136,8 @@ const Reports = () => {
   gateways &&
     gateways.forEach((g) => {
       g.reports = []
-      allReports &&
-        allReports.forEach((r) => {
+      reports &&
+        reports.forEach((r) => {
           if (r.gatewayId === g.gatewayId) {
             g.reports.push(r)
           }
@@ -141,7 +146,7 @@ const Reports = () => {
 
   const totalAmount = 0
 
-  allReports && allReports.map(({ amount }) => (totalAmount += amount))
+  reports && reports.map(({ amount }) => (totalAmount += amount))
 
   return (
     <StyledReportsWrapper>
@@ -174,7 +179,7 @@ const Reports = () => {
             placeholder="To date"
             handleChange={(date) => handleChangeTo(date)}
           />
-          <Button onClick={postReport} text="Generate report" />
+          <Button onClick={generateReport} text="Generate report" />
         </StyledButtonsWrapper>
       </StyledReportsHeader>
       <StyledReportsTitleDesc>
@@ -185,7 +190,7 @@ const Reports = () => {
           <>
             <StyledReportsContent>
               <ReportDetailsWrapper
-                reports={allReports}
+                reports={reports}
                 projects={projects}
                 gateways={gateways}
                 projectId={projectId}

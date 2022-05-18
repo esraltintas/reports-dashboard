@@ -11,7 +11,6 @@ const ReportDetailsWrapper = ({ projects, gateways, projectId, gatewayId }) => {
 
   let listedGateways =
     gateways && gateways.filter((p) => p.gatewayId === gatewayId)
-  console.log(projectId)
 
   return (
     <StyledReportDetailWrapper>

@@ -25,7 +25,6 @@ const DoughnutChart = ({ type, chartInfo }) => {
 
   const colors = ["#A259FF", "#F24E1E", "#FFC107", "#6497B1"]
   let labels = []
-  console.log(chartData, chartInfo)
 
   chartData.forEach((cd) => {
     let totalAmount = 0
