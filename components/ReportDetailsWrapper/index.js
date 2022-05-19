@@ -12,8 +12,6 @@ const ReportDetailsWrapper = ({ projects, gateways, projectId, gatewayId }) => {
 
   let listedGateways =
     gateways && gateways.filter((p) => p.gatewayId === gatewayId)
-    console.log(projects)
-    //console.log(groupBy(projects.reports, "created"))
 
   return (
     <StyledReportDetailWrapper>
