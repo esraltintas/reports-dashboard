@@ -17,6 +17,7 @@ const DateComponent = ({ date, handleChange = () => {}, placeholder }) => {
       </div>
     )
   })
+  console.log(date)
   return (
     <StyledDatePickerWrapper>
       <DatePicker
@@ -24,6 +25,7 @@ const DateComponent = ({ date, handleChange = () => {}, placeholder }) => {
         onChange={handleChange}
         placeholderText={placeholder}
         customInput={<CustomInput />}
+        format="dd.mm.yyyy"
       />
     </StyledDatePickerWrapper>
   )

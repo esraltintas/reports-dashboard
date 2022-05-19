@@ -12,6 +12,7 @@ const ReportDetail = ({ type, detail, selectedGateway, selectedProject }) => {
     total += d.amount
   })
 
+
   const toggleDetailWrapper = () => {
     var el = document.getElementById(
       type === "project" ? detail.projectId : detail.gatewayId
@@ -38,15 +39,15 @@ const ReportDetail = ({ type, detail, selectedGateway, selectedProject }) => {
           <div>Transaction ID</div>
           <div>Amount</div>
         </StyledReportDetailCard>
-        {detail.reports.map((report, key) => {
+        {detail.reports.map((report, key) => {          
           return (
             <StyledReportDetailCard
               selectedProject={selectedProject}
               selectedGateway={selectedGateway}
               color={key % 2 !== 0 ? "white" : 0}
-              key={key}>
-              <span>{report.created}</span>
-              {!(selectedProject !== "" || selectedGateway !== "") && (
+              key={key}>  
+            <span>{`${report.created.slice(8,10)}.${report.created.slice(5,7)}.${report.created.slice(0,4)}`}</span>
+             {!(selectedProject !== "" || selectedGateway !== "") && (
                 <span>{report.gatewayName}</span>
               )}
               <span>{report.paymentId}</span>

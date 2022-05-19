@@ -1,5 +1,6 @@
 import React from "react"
 import ReportDetail from "../ReportDetail"
+import { groupBy } from "../../utils"
 import {
   StyledReportDetailWrapper,
   StyledReportDetailTitle,
@@ -11,6 +12,8 @@ const ReportDetailsWrapper = ({ projects, gateways, projectId, gatewayId }) => {
 
   let listedGateways =
     gateways && gateways.filter((p) => p.gatewayId === gatewayId)
+    console.log(projects)
+    //console.log(groupBy(projects.reports, "created"))
 
   return (
     <StyledReportDetailWrapper>
@@ -19,7 +22,9 @@ const ReportDetailsWrapper = ({ projects, gateways, projectId, gatewayId }) => {
         ${gatewayId === "" ? "All gateways" : listedGateways[0].name}`}
       </StyledReportDetailTitle>
       {projectId === "" || (projectId !== "" && gatewayId !== "")
-        ? projects.map((p, key) => (
+        ? projects.map((p, key) => { 
+          p.reports.sort((a, b) => a.created < b.created ? -1 : 1)
+          return (
             <ReportDetail
               detail={p}
               type="project"
@@ -27,7 +32,7 @@ const ReportDetailsWrapper = ({ projects, gateways, projectId, gatewayId }) => {
               selectedProject={projectId}
               selectedGateway={gatewayId}
             />
-          ))
+          )})
         : gateways.map((g, key) => (
             <ReportDetail
               detail={g}
